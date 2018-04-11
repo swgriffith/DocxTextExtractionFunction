@@ -15,19 +15,20 @@ namespace DocxTextExtractionFunction
     public static class DocxToText
     {
         [FunctionName("DocxToText")]
-        public static void Run([BlobTrigger("drop/{name}", Connection = "dropsite")]Stream myBlob, string name, TraceWriter log)
+        [return: Blob("output/{name}.txt", FileAccess.Write, Connection = "dropsite")]
+        public static string Run([BlobTrigger("drop/{name}", Connection = "dropsite")]Stream myBlob, string name, TraceWriter log)
         {
             log.Info($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
 
             MemoryStream ms = new MemoryStream();
             myBlob.CopyTo(ms);
-
-
+            
             List<string> output = ProcessWordDoc(ms);
 
-            log.Info(output.ToString());
-            
+            //string outFileName = name.Substring(0, name.IndexOf('.'));
+            return string.Join(Environment.NewLine,output);
         }
+        
 
         private static List<string> ProcessWordDoc(MemoryStream fileBytes)
         {
