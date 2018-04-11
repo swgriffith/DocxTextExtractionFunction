@@ -1,14 +1,13 @@
-using System.IO;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using DocumentFormat.OpenXml;
-using System.IO.Packaging;
 using System;
-using System.Xml;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace DocxTextExtractionFunction
 {
